@@ -3,7 +3,14 @@ from LazyTable.LazyTable import LazyTable
 
 
 class LazyRegister(Register):
+    """
+    Lazy Register adds push and update function
+    push Register.
+    """
     def push(self, title, cols):
+        """
+        Creates and registers a table
+        """
         table = LazyTable(title, cols)
         self.register(table)
 
@@ -12,6 +19,10 @@ class LazyRegister(Register):
             self.tables[tab].create_table(self.db)
 
     def update(self):
+        """
+        Checks registry for changes not present in
+        database and updates accordingly
+        """
         current = LazyRegister(self.db)
         current.render()
         cur = self.db.cursor()

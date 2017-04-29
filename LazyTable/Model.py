@@ -3,6 +3,11 @@ import json
 
 
 class Model:
+    """
+    Basic row model
+
+    Values are stored in dictionary
+    """
     def __init__(self, table, values):
         self.table = table
         self.values = values

@@ -1,24 +1,10 @@
 class Column:
     """
-    Mysql Column
+    Column accepts a title, a value type as well as
+    a slew of optional parameters to define your column
     """
     def __init__(self, title, value, required=False, unique=False,
                  primary_key=False, foreign_key_reference=None):
-        """
-
-        :param title: Column title
-         :type title: str
-        :param value: Column type(INTEGER, VarChar, etc)
-         :type value: Object
-        :param required: Is required?
-         :type required bool
-        :param unique: Is unique?
-         :type unique: bool
-        :param primary_key:
-         :type primary_key: Is primary key?
-        :param foreign_key_reference: What table column references
-         :type foreign_key_reference: str
-        """
         self.title = title
         self.value = value
         self.required = required

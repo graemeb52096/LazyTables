@@ -4,6 +4,11 @@ from LazyTable.Column import Column
 
 
 class Register():
+    """
+    Basic registry.
+    Stores db table info
+    Generates Schemas
+    """
     def __init__(self, db):
         self.db = db
         self.tables = {}
@@ -25,10 +30,6 @@ class Register():
             schema += (self.tables[tab].get_create_table_sql())
             schema += '\n'
         return schema
-
-    def push_schema(self):
-        for tab in self.tables:
-            self.tables[tab].create_table(self.db)
 
     def compare(self, registry):
         for table in self.tables:
