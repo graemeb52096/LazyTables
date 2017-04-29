@@ -1,8 +1,8 @@
 ## Currently Supports
  -Mysql
- 
+
 ## Basic usage
-    db = Mysql().connect()
+    db = MySQLdb.connect("localhost", "root", "", "database")
     registry = LazyRegister(db)
     registry.render()
     columns = {
@@ -14,7 +14,7 @@
 
 ## Description
 LazyTable was created to make mysql a lot more... **LAZY**
- 
+
 Not every feature desired for the final LazyTable is complete.
 
 LazyTable hopes to tackle schema design, as well as
@@ -36,17 +36,17 @@ Column parameters can be empty:
 
     col_type = 'int'
     col_params = ''
-    
+
  Or can define one configs:
- 
+
     col_type = 'str'
     col_params = 'unique/n'
-    
+
  Or can define multiple configs
- 
+
     col_type = 'int'
     col_params = 'required/unique/User'
-    
+
  **Note that if we define any configurations,
  we must provide a foreign key reference at
  the end of config statement. Use "/n" for none.**
@@ -60,7 +60,7 @@ Column parameters can be empty:
     user_columns['username'] = (username_col_type, username_col_parameters)
     user_columns['password'] = (password_col_type, password_col_parameters)
     user_table = LazyTable('User', user_columns)
-    
+
 ## Lazy Example
     user_columns = {
         'username': ('str', 'required/unique/n'),
@@ -79,10 +79,10 @@ Column parameters can be empty:
     }
     user_table = LazyTable('User', user_columns)
     post_table = LazyTable('Post', post_columns)
-    
+
 # LazyRegister
 ## Description
-Registers can be used to manage a database, 
+Registers can be used to manage a database,
 and migrate tables.
 
     LazyRegister.register(table)
@@ -102,14 +102,14 @@ in the database
 
 
 ## Example
-    db = Mysql().connect()
+    db = MySQLdb.connect("localhost", "root", "", "database")
     registry = Register(db)
     registry.render()
     registry.register(user_table)
     reigstry.update()
 
 ## Lazy Example
-    db = Mysql().connect()
+    db = MySQLdb.connect("localhost", "root", "", "database")
     registry = LazyRegister(db)
     registry.render()
     registry.push('User', user_columns)
