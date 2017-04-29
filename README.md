@@ -1,5 +1,16 @@
-## Currently Supports:
+## Currently Supports
  -Mysql
+ 
+## Basic usage
+    db = Mysql().connect()
+    registry = LazyRegister(db)
+    registry.render()
+    columns = {
+      'username': ('str', 'unique/required/n',
+      'password': ('str', 'required/n')
+    }
+    registry.push('User', columns)
+    registry.update()
 
 ## Description
 LazyTable was created to make mysql a lot more... **LAZY**
