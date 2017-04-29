@@ -105,6 +105,15 @@ in the database
     db = MySQLdb.connect("localhost", "root", "", "database")
     registry = Register(db)
     registry.render()
+    user_columns = {
+        'username': ('str', 'required/unique/n'),
+        'password': ('str', 'required/n'),
+        'email': ('str', 'unique/required/n'),
+        'firstName': ('str', 'required/n'),
+        'lastName': ('str', 'required/n'),
+        'location': ('str', '')
+    }
+    user_table = LazyTable('User', use_columns)
     registry.register(user_table)
     reigstry.update()
 
@@ -112,5 +121,13 @@ in the database
     db = MySQLdb.connect("localhost", "root", "", "database")
     registry = LazyRegister(db)
     registry.render()
+    user_columns = {
+        'username': ('str', 'required/unique/n'),
+        'password': ('str', 'required/n'),
+        'email': ('str', 'unique/required/n'),
+        'firstName': ('str', 'required/n'),
+        'lastName': ('str', 'required/n'),
+        'location': ('str', '')
+    }
     registry.push('User', user_columns)
     registry.update()
