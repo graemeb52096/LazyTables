@@ -7,7 +7,9 @@
     registry.render()
     columns = {
       'username': ('str', 'unique/required/n',
-      'password': ('str', 'required/n')
+      'password': ('str', 'required/n'),
+      'email': ('str', 'required/n'),
+      'favourite_candy': ('str', '')
     }
     registry.push('User', columns)
     registry.update()
