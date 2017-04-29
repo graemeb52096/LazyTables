@@ -2,7 +2,7 @@
  -Mysql
 
 ## Basic usage
-    db = MySQLdb.connect("localhost", "root", "", "database")
+    db = MySQLdb.connect("localhost", "root", "password", "database")
     registry = LazyRegister(db)
     registry.render()
     columns = {
@@ -102,7 +102,7 @@ in the database
 
 
 ## Example
-    db = MySQLdb.connect("localhost", "root", "", "database")
+    db = MySQLdb.connect("localhost", "root", "password", "database")
     registry = Register(db)
     registry.render()
     user_columns = {
@@ -118,7 +118,7 @@ in the database
     reigstry.update()
 
 ## Lazy Example
-    db = MySQLdb.connect("localhost", "root", "", "database")
+    db = MySQLdb.connect("localhost", "root", "password", "database")
     registry = LazyRegister(db)
     registry.render()
     user_columns = {
