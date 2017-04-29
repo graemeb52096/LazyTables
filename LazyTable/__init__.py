@@ -1,0 +1,2 @@
+from LazyTable.LazyRegister import LazyRegister
+from LazyTable.LazyTable import LazyTable
