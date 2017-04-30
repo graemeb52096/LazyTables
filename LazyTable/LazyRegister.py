@@ -1,5 +1,6 @@
 from LazyTable.Register import Register
 from LazyTable.LazyTable import LazyTable
+from LazyTable.Model import Model
 
 
 class LazyRegister(Register):
@@ -17,6 +18,20 @@ class LazyRegister(Register):
     def add_tables(self):
         for tab in self.tables:
             self.tables[tab].create_table(self.db)
+
+    def insert_row(self, table, values):
+        row = Model(table, values)
+        insert_statement = row.get_insert_sql()
+        cur = self.db.cursor()
+        cur.execute(insert_statement)
+        self.db.commit()
+
+    def edit_row(self, table, values):
+        pass
+
+    def delete_row(self, table, id):
+        pass
+
 
     def update(self):
         """

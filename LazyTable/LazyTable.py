@@ -68,16 +68,27 @@ class LazyTable(Table):
                     ))
 
     def GET(self, db, iid):
-        self.get_by_id(db, iid)
+        data = self.get_by_id(db, iid)
+        for row in data:
+            data = row
+        cols = self.get_cols
+        i = 0
+        response = {}
+        while i < len(data):
+            response[col[i]] = data[i]
+            i += 1
+        return response
+
 
     def POST(self, db, vals):
         row = Model(self, vals)
         self.add_row(row)
-        row.insert_row()
+        row.insert_row(db)
 
     def PUT(self, vals):
         row = Model(self, vals)
         pass
 
-    def DELETE(self, iid):
-        pass
+    def DELETE(self, iid, db):
+        cur = db.cursor()
+        

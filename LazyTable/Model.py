@@ -11,6 +11,7 @@ class Model:
     def __init__(self, table, values):
         self.table = table
         self.values = values
+        self.values['dateCreated'] = datetime.datetime.now()
 
     def get_cols(self):
         cols = '('
