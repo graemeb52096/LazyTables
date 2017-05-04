@@ -44,11 +44,15 @@ class Table:
 
     def get_by_id(self, db, iid):
         cur = db.cursor()
-        print ("Table: %s id: %s" % (self.title, iid))
         cur.execute("""SELECT * FROM %s WHERE id=%s""" % (
             self.title, iid
         ))
         rows = cur.fetchone()
+        if rows == None:
+            return {
+                'error':
+                'entry with id %s was not found in table %s' % (iid, self.title)
+            }
         i = 0
         response = {}
         cols = self.get_cols()
@@ -56,7 +60,6 @@ class Table:
             response[cols[i]] = rows[i]
             i += 1
         return response
-
 
     def create_table(self, db):
         cur = db.cursor()

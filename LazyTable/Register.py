@@ -33,6 +33,15 @@ class Register():
     def fetch(self, table, iid):
         return self.tables[table].get_by_id(self.db, iid)
 
+    def fetch_column(self, table, column, iid):
+        if table.has_column(column):
+            cur = self.db.cursor()
+            cur.execute("""SELECT %s FROM %s WHERE id=%s""" %(
+                column, table.title, iid
+            ))
+        else:
+            print("Column does not exist check spelling.")
+
     def generate_schema(self):
         schema = ""
         for tab in self.tables:

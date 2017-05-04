@@ -20,18 +20,43 @@ class LazyRegister(Register):
             self.tables[tab].create_table(self.db)
 
     def insert_row(self, table, values):
+        if values == None:
+            return {'error': 'provided no values'}
         row = Model(table, values)
         insert_statement = row.get_insert_sql()
         cur = self.db.cursor()
-        cur.execute(insert_statement)
+        rv = cur.execute(insert_statement)
+        id = self.db.insert_id()
         self.db.commit()
+        return id
 
-    def edit_row(self, table, values):
+    def edit_row(self, table, id, values):
         pass
 
     def delete_row(self, table, id):
-        pass
+        cur = self.db.cursor()
+        cur.execute("""DELETE FROM %s WHERE id=%s""" % (
+            table, id
+        ))
+        self.db.commit()
 
+    def select(self, table, columns, conditions=None):
+        table = self.tables[table]
+        statement = 'SELECT ('
+        for col in columns:
+            statement += '%s ,' % col
+        statement = statement[:-2] + ')'
+        statement = statement + 'FROM %s' % table.title
+        cur = self.db.cursor()
+        cur.execute(statement)
+        rows = cur.fetchall()
+        response = {}
+        for row in rows:
+            i = 0
+            while i < len(columns):
+                response[columns[i]] = row[i]
+                i += 1
+        return response
 
     def update(self):
         """
@@ -54,7 +79,7 @@ class LazyRegister(Register):
                     #    table, removal[0]
                     #))
                     #print('Removed column: ', removal[0])
-                    print("Didnt removed column: ", removal[0])
+                    print('Did not removed column: ', removal[0])
             else:
                 schema = self.tables[table].get_create_table_sql()
                 cur.execute(schema)
