@@ -3,17 +3,32 @@
  -Mysql
 
 ## Basic usage
-    db = MySQLdb.connect("localhost", "root", "password", "database")
-    registry = LazyRegister(db)
-    registry.render()
-    columns = {
-      'username': ('str', 'unique/required/n',
-      'password': ('str', 'required/n'),
-      'email': ('str', 'required/n'),
-      'favourite_candy': ('str', '')
-    }
-    registry.push('User', columns)
-    registry.update()
+    >>> db = MySQLdb.connect("localhost", "root", "password", "database")
+    >>> registry = LazyRegister(db)
+    >>> registry.render()
+    >>> columns = {
+    >>>   'username': ('str', 'unique/required/n',
+    >>>   'password': ('str', 'required/n'),
+    >>>   'email': ('str', 'required/n'),
+    >>>   'favorite_candy': ('str', '')
+    >>> }
+    >>> registry.push('User', columns)
+    >>> registry.update()
+    >>> user = {
+    >>>   'username': 'User123',
+    >>>   'password': 'password',
+    >>>   'email': 'example@123.com',
+    >>>   'favorite_candy': 'chocolate'
+    >>> }
+    >>> user_id = registry.insert_row('User', user)
+    >>> registry.edit_row('User', user_id, {'username': 'updated'})
+    >>> print(registry.fetch('User', user_id))
+    {id: 1, 'username': 'updated', 'password': 'HIDDEN',
+    'email': 'example@123.com', 'favorite_candy': 'chocolate'}
+    >>> registry.delete_row('User', user_id)
+    >>> print(registry.fetch('User', user_id))
+    {'error': 'entry with id 0 was not found in table User'}
+
 
 ## Description
 LazyTable was created to make mysql a lot more... **LAZY**

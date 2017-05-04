@@ -57,7 +57,10 @@ class Table:
         response = {}
         cols = self.get_cols()
         while i < len(rows):
-            response[cols[i]] = rows[i]
+            if cols[i].upper() == 'PASSWORD':
+                response[cols[i]] = 'HIDDEN'
+            else:
+                response[cols[i]] = rows[i]
             i += 1
         return response
 
