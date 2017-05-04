@@ -31,7 +31,20 @@ class LazyRegister(Register):
         return id
 
     def edit_row(self, table, id, values):
-        pass
+        cur = self.db.cursor()
+        model = Model(table, values)
+        cols = model.get_cols()[1:-1].split(',')
+        vals = model.get_vals()[1:-1].split(',')
+        i = 0
+        statement = "UPDATE %s SET " % table
+        while i < len(cols):
+            if cols[i] != 'dateCreated':
+                statement += "%s='%s', " % (cols[i], vals[i])
+            i += 1
+        statement = statement[:-2]
+        statement += " WHERE id=%s" % id
+        cur.execute(statement)
+        self.db.commit()
 
     def delete_row(self, table, id):
         cur = self.db.cursor()

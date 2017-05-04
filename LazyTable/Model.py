@@ -19,15 +19,25 @@ class Model:
     def get_cols(self):
         cols = '('
         for val in self.values:
-            cols += '%s, ' % val
-        cols = cols[:-2]
+            cols += '%s,' % val
+        cols = cols[:-1]
         cols += ')'
         return cols
+
+    def get_vals(self):
+        cols = self.get_cols()[1:-1]
+        cols = cols.split(',')
+        vals = '('
+        for col in cols:
+            vals += '%s,' % self.values[col]
+        vals = vals[:-1]
+        vals += ')'
+        return vals
 
     def get_insert_sql(self):
         cols = self.get_cols()
         statement = """INSERT INTO %s %s VALUES(""" % (
-            self.table.title, cols
+            self.table, cols
         )
         for val in self.values:
             if type(self.values[val]) == int:
