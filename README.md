@@ -7,7 +7,7 @@
     >>> registry = LazyRegister(db)
     >>> registry.render()
     >>> columns = {
-    >>>   'username': ('str', 'unique/required/n',
+    >>>   'username': ('str', 'unique/required/n'),
     >>>   'password': ('str', 'required/n'),
     >>>   'email': ('str', 'required/n'),
     >>>   'favorite_candy': ('str', '')
